@@ -4,7 +4,7 @@ import { Link, Outlet } from 'react-router'
 const Layout = () => {
   return (
     <div>
-        <header>
+        <header className='flex p-[20px] border justify-around'>
             <Link to={'/'}> <p>Home</p></Link>
             <Link to={'/About'}> <p>About</p></Link>
             <Link to={'/Catalog'}> <p>Catalog</p></Link>
