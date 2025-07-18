@@ -11,36 +11,36 @@ export let toDoCartSlice = createSlice({
         id: "1",
         img: img1,
         name: "Пеноплекс Кофморт 1185х585х20мм 20 плит, 13.86м2, 0.278м3",
-        sena: "1 345",
-        cnt: 0,
+        sena: 1345,
+        cnt: 1,
       },
       {
         id: "2",
         img: img2,
         name: "Пеноплекс Кофморт 1185х585х20мм 20 плит, 13.86м2, 0.278м3",
-        sena: "1 345",
-        cnt: 0,
+        sena: 1345,
+        cnt: 1,
       },
       {
         id: "3",
         img: img3,
         name: "Пеноплекс Кофморт 1185х585х20мм 20 плит, 13.86м2, 0.278м3",
-        sena: "1 345",
-        cnt: 0,
+        sena: 1345,
+        cnt: 1,
       },
       {
         id: "4",
         img: img1,
         name: "Пеноплекс Кофморт 1185х585х20мм 20 плит, 13.86м2, 0.278м3",
-        sena: "1 345",
-        cnt: 0,
+        sena: 1345,
+        cnt: 1,
       },
       {
         id: "5",
         img: img2,
         name: "Пеноплекс Кофморт 1185х585х20мм 20 плит, 13.86м2, 0.278м3",
-        sena: "1 345",
-        cnt: 0,
+        sena: 1345,
+        cnt: 1,
       },
     ],
   },
@@ -48,13 +48,13 @@ export let toDoCartSlice = createSlice({
   reducers: {
     inc: (state, action) => {
       state.data = state.data.map((e) =>
-        e.id == action.payload.id ? { ...e, count: (e.cnt += 1) } : e
+        e.id == action.payload.id ? { ...e, cnt: e.cnt += 1 } : e
       );
     },
 
     dec: (state, action) => {
       state.data = state.data.map((e) =>
-        e.id == action.payload.id ? { ...e, count: (e.cnt -= 1) } : e
+        e.id == action.payload.id ? { ...e, cnt: e.cnt -= 1 } : e
       );
     },
 
@@ -74,4 +74,4 @@ export let toDoCartSlice = createSlice({
   },
 });
 
-export let { deleteMap, addMap, editMap } = toDoCartSlice.actions;
+export let { inc, dec, deleteMap, addMap, editMap } = toDoCartSlice.actions;

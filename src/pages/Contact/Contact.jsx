@@ -31,7 +31,8 @@ const Contact = () => {
       img: addImg,
     };
 
-    addMap(newUser);
+    dispatch(addMap(newUser));
+    setaddModal(false);
   }
 
   let [editModal, seteditModal] = useState(false);
@@ -53,8 +54,9 @@ const Contact = () => {
       graf: editGraf,
       img: editImg,
     };
+    seteditModal(false);
 
-    editMap(newUser);
+    dispatch(editMap(newUser));
   }
 
   function openModal(e) {

@@ -6,7 +6,8 @@ import img2 from "../../assets/Group 140.png";
 import img3 from "../../assets/Vector (1).png";
 import img4 from "../../assets/Vector (2).png";
 import img5 from "../../assets/Group 79.png";
-import { addMap, deleteMap, editMap } from "../../reduse/todoCart";
+
+import { addMap, dec, deleteMap, editMap, inc } from "../../reduse/todoCart";
 
 const Contact2 = () => {
   let data = useSelector((store) => store.todoCart.data);
@@ -23,9 +24,11 @@ const Contact2 = () => {
       name: addName,
       sena: addSena,
       img: addImg,
+      cnt: 1,
     };
+    setaddModal(false);
 
-    addMap(newUser);
+    dispatch(addMap(newUser));
   }
 
   let [editModal, seteditModal] = useState(false);
@@ -40,9 +43,11 @@ const Contact2 = () => {
       name: editName,
       sena: editSena,
       img: editImg,
+      cnt: 1,
     };
+    seteditModal(false);
 
-    editMap(newUser);
+    dispatch(editMap(newUser));
   }
 
   function openModal(e) {
@@ -62,9 +67,10 @@ const Contact2 = () => {
       </section>
 
       <section>
-        <div className="flex items-center justify-between w-3/5 pb-10">
+        <div className="flex lg:flex-row flex-col items-center justify-between lg:w-3/5 pb-10">
           <p className="text-[#1E2126] text-5xl">Корзина </p>
-          <div className="space-x-5">
+
+          <div className="space-x-5 py-5 flex justify-between items-center">
             <button
               onClick={() => setaddModal(true)}
               className="border px-5 rounded"
@@ -94,9 +100,9 @@ const Contact2 = () => {
                 <input
                   className="rounded-[5px] border px-2 py-1"
                   type="text"
-                  placeholder="Mail"
-                  value={addMail}
-                  onChange={(e) => setaddMail(e.target.value)}
+                  placeholder="Sena"
+                  value={addSena}
+                  onChange={(e) => setaddSena(e.target.value)}
                 />
                 <input
                   className="rounded-[5px] border px-2 py-1"
@@ -104,20 +110,6 @@ const Contact2 = () => {
                   placeholder="Whatsapp"
                   value={addWhatsapp}
                   onChange={(e) => setaddWhatsapp(e.target.value)}
-                />
-                <input
-                  className="rounded-[5px] border px-2 py-1"
-                  type="text"
-                  placeholder="Loc"
-                  value={addLoc}
-                  onChange={(e) => setaddLoc(e.target.value)}
-                />
-                <input
-                  className="rounded-[5px] border px-2 py-1"
-                  type="text"
-                  placeholder="Graf"
-                  value={addGraf}
-                  onChange={(e) => setaddGraf(e.target.value)}
                 />
                 <input
                   className="rounded-[5px] border px-2 py-1"
@@ -161,31 +153,11 @@ const Contact2 = () => {
                 <input
                   className="rounded-[5px] border px-2 py-1"
                   type="text"
-                  placeholder="Mail"
-                  value={editMail}
-                  onChange={(e) => seteditMail(e.target.value)}
+                  placeholder="Sena"
+                  value={editSena}
+                  onChange={(e) => seteditSena(e.target.value)}
                 />
-                <input
-                  className="rounded-[5px] border px-2 py-1"
-                  type="text"
-                  placeholder="Whatsapp"
-                  value={editWhatsapp}
-                  onChange={(e) => seteditWhatsapp(e.target.value)}
-                />
-                <input
-                  className="rounded-[5px] border px-2 py-1"
-                  type="text"
-                  placeholder="Loc"
-                  value={editLoc}
-                  onChange={(e) => seteditLoc(e.target.value)}
-                />
-                <input
-                  className="rounded-[5px] border px-2 py-1"
-                  type="text"
-                  placeholder="Graf"
-                  value={editGraf}
-                  onChange={(e) => seteditGraf(e.target.value)}
-                />
+
                 <input
                   className="rounded-[5px] border px-2 py-1"
                   type="text"
@@ -211,58 +183,83 @@ const Contact2 = () => {
           )}
         </div>
 
-        <section className="flex items-start justify-between">
-          <article className="w-3/5">
+        <section className="flex lg:flex-row flex-col items-start justify-between">
+          <article className="lg:w-3/5 space-y-5">
             {data.map((e) => (
               <article
                 key={e.id}
-                className="flex lg:flex-row flex-col gap-5  px-[5%] shadow shadow-[#0000001A] p-5 rounded-2xl"
+                className="flex  gap-5  px-[5%] shadow shadow-[#0000001A] p-5 rounded-xl"
               >
-                <img className="w-1/10 h-1/10" src={e.img} alt="" />
+                <img className="lg:w-1/10 lg:h-1/10" src={e.img} alt="" />
 
-                <article className="w-9/10 flex flex-col justify-between">
+                <article className="lg:w-9/10 flex flex-col justify-between">
                   <div className="flex justify-between items-center">
                     <p className="text-[14px]">{e.name}</p>
 
-                    <button onClick={() => dispatch(deleteMap(e.id))}>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="size-6 text-red-400"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M6 18 18 6M6 6l12 12"
-                        />
-                      </svg>
-                    </button>
+                    <div className="flex items-center gap-5">
+                      <button onClick={() => openModal(e)}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="size-6 text-blue-500"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+                          />
+                        </svg>
+                      </button>
+
+                      <button onClick={() => dispatch(deleteMap(e.id))}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="size-6 text-red-400"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M6 18 18 6M6 6l12 12"
+                          />
+                        </svg>
+                      </button>
+                    </div>
                   </div>
 
-                  <div className="flex items-center justify-between">
+                  <div className="flex lg:flex-row flex-col lg:items-center justify-between">
                     <div className="flex items-center gap-5">
                       <p className="text-[#707070] font-extrabold ">
                         {e.sena} ₽/шт.
                       </p>
 
                       <div className="flex items-center gap-2.5">
-                        <button className="border border-[#C7C7C7] w-5 h-5 flex justify-center items-center">
+                        <button
+                          onClick={() => dispatch(dec(e))}
+                          className="border border-[#C7C7C7] w-5 h-5 flex justify-center items-center"
+                        >
                           -
                         </button>
                         <button className="text-[#707070] border border-[#C7C7C7] w-5 h-5 flex justify-center items-center">
                           {e.cnt}
                         </button>
-                        <button className="border border-[#C7C7C7] w-5 h-5 flex justify-center items-center">
+                        <button
+                          onClick={() => dispatch(inc(e))}
+                          className="border border-[#C7C7C7] w-5 h-5 flex justify-center items-center"
+                        >
                           +
                         </button>
                       </div>
                     </div>
 
                     <p className="text-[#1D6BDD] font-extrabold">
-                      Итого: {Number(e.sena) * Number(e.cnt)}
+                      Итого: {Number(e.sena) * e.cnt} ₽
                     </p>
                   </div>
                 </article>
@@ -270,7 +267,7 @@ const Contact2 = () => {
             ))}
           </article>
 
-          <article className="shadow-2xl shadow-[#0000001A] p-10 rounded-2xl w-[35%]">
+          <article className="shadow-2xl shadow-[#0000001A] p-10 rounded-2xl lg:w-[35%]">
             <p className="font-bold text-2xl text-center pb-5">
               Оформление заказа
             </p>
@@ -305,7 +302,7 @@ const Contact2 = () => {
                 </p>
               </div>
 
-              <button className="text-white bg-[#167FFE] py-1 ">
+              <button className="text-white bg-[#167FFE] py-1 my-5">
                 Оформить заказ
               </button>
 
