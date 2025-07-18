@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import img2 from '../../../assets/imagesSobir/img1 (8).png'
 import { Button, Input, Modal } from 'antd';
 import { inc, dec, DeleteUser,AddnewUser } from '../../../reduse/contentSlice'
+import img7 from '../../../assets/imagesSobir/img1 (15).png'
 
 const Card = () => {
     // let coun = useSelector((store) => store.counter.count)
@@ -18,10 +19,12 @@ const Card = () => {
         let newUser={
             name:Addname,
             prase:Addprase,
+            img:img7,
+            count:0,
             status:Addstatus==true,
             id:Date.now()
         }
-        AddnewUser(newUser)
+       dispatch( AddnewUser(newUser))
         setAddname("")
         setAddprase("")
         setAddstatus("true")
@@ -42,10 +45,10 @@ const Card = () => {
 
     return (
         <div>
-            <div>
+            <div className='flex justify-around items-center'>
                 <p className='font-black text-4xl lg:text-5xl m-[30px]'>Теплоизоляция</p>
             <Button type="primary" onClick={showModal}>
-                Open Modal
+                ADD NEW PRODUCS
             </Button>
             </div>
             <Modal
