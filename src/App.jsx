@@ -29,7 +29,7 @@ const App = () => {
 						<Route path='/Contact' element={<Contact />} />
 						<Route path='/Contact1' element={<Contact1 />} />
 						<Route path='/Contact2' element={<Contact2 />} />
-						<Route path='/info:id' element={<Info />} />
+						<Route path='/info/:id' element={<Info />} />
 					</Route>
 				</Routes>
 			</BrowserRouter>
