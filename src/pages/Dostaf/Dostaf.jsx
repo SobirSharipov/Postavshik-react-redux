@@ -2,7 +2,7 @@ import React from 'react'
 //Murod
 const Dostaf = () => {
 	return (
-		<div className='px-[5%] flex flex-col gap-[5vh] pt-[5vh]'>
+		<div className='px-[5%] flex flex-col gap-[5vh] py-[5vh]'>
 			<p className='flex gap-[10px] items-center text-[#707070]'>
 				Главная <div className='bg-blue-600 w-[10px] h-[10px]'></div> Доставка
 			</p>
