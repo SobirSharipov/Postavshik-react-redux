@@ -1,20 +1,71 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import img2 from '../../../assets/imagesSobir/img1 (8).png'
-import { inc, dec, DeleteUser } from '../../../reduse/contentSlice'
+import { Button, Input, Modal } from 'antd';
+import { inc, dec, DeleteUser,AddnewUser } from '../../../reduse/contentSlice'
 
 const Card = () => {
     // let coun = useSelector((store) => store.counter.count)
     let data = useSelector((store) => store.counter.data)
     let dispatch = useDispatch()
 
-    
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    let [Addname,setAddname]=useState("")
+    let [Addprase,setAddprase]=useState("")
+    let [Addstatus,setAddstatus]=useState("true")
+    function Add() {
+        let newUser={
+            name:Addname,
+            prase:Addprase,
+            status:Addstatus==true,
+            id:Date.now()
+        }
+        AddnewUser(newUser)
+        setAddname("")
+        setAddprase("")
+        setAddstatus("true")
+        setIsModalOpen(false)
+    }
+
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+
     return (
         <div>
-            <div className='flex flex-wrap justify-around my-[50px]'>
+            <div>
+                <p className='font-black text-4xl lg:text-5xl m-[30px]'>Теплоизоляция</p>
+            <Button type="primary" onClick={showModal}>
+                Open Modal
+            </Button>
+            </div>
+            <Modal
+                title="Basic Modal"
+                closable={{ 'aria-label': 'Custom Close Button' }}
+                open={isModalOpen}
+                onOk={Add}
+                onCancel={handleCancel}
+            >
+                <Input value={Addname} onChange={(e)=>setAddname(e.target.value)}></Input>
+                <Input value={Addprase} onChange={(e)=>setAddprase(e.target.value)}></Input>
+              <select value={Addstatus} onChange={(e)=>setAddstatus(e.target.value)}>
+                <option value="true">Active</option>
+                <option value="false">Inactive</option>
+              </select>
+            </Modal>
+            <div className='lg:flex flex-wrap justify-around my-[50px]'>
                 {data.map(el => {
                     return (
-                        <div key={el.id} className='w-[22%] shadow-2xl text-center my-[30px]'>
+                        <div key={el.id} className='lg:w-[22%] w-[80%] mx-auto shadow-2xl text-center my-[30px]'>
                             <img src={el.img} alt="" className='w-[100%] mb-[20px]' />
                             <img src={img2} alt="" className='w-[70%] mx-auto my-[10px]' />
                             <p>{el.name}</p>
